@@ -7,22 +7,14 @@ import os
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 
-
 load_dotenv()
-
-
-def getObjects(response):
-	# regex to get objects
-	object_extractor = re.findall(r'\{.+?\}', response)
-	MF_list = [json.loads(i) for i in object_extractor]
-	return MF_list
 
 
 def main():
 	main_start = time.time()
 
 	# mention the number of days in range starting from today to history
-	for day in range(2,4):
+	for day in range(13,15):
 		start = time.time()
 		today = (datetime.now() - timedelta(days=day)).strftime('%d-%b-%Y')
 		month_name = (datetime.now() - timedelta(days=day)).strftime('%b')
@@ -38,8 +30,7 @@ def main():
 		response = requests.request("GET", url, headers=headers, params=querystring)
 
 		# The response is a list of JSON object in string format
-		# So getObject() gets converts the String to list JSON objects
-		MF_data = getObjects(response.text)
+		MF_data = json.loads(response.text)
 
 		# Converting the JSON data to Pandas Dataframe so as to save the data as CSV
 		df = pd.DataFrame(MF_data)
