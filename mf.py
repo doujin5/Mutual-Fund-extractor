@@ -14,7 +14,7 @@ def main():
 	main_start = time.time()
 
 	# mention the number of days in range starting from today to history
-	for day in range(13,15):
+	for day in range(1,15):
 		start = time.time()
 		today = (datetime.now() - timedelta(days=day)).strftime('%d-%b-%Y')
 		month_name = (datetime.now() - timedelta(days=day)).strftime('%b')
